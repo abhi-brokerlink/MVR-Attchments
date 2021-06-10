@@ -1,0 +1,3 @@
+Policy Deletion Started: Saturday, 27 March 2021 10:08:32
+Policies Deleted: 1993
+Policy Deletion Ended: Saturday, 27 March 2021 10:28:56
