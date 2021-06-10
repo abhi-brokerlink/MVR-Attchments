@@ -13,52 +13,52 @@ namespace EpicIntegrator
 
         static void Main(string[] args)
         {
-            CloseActivities();
+            CloseAttachments();
         }
           
-        static void CloseActivities()
+        static void CloseAttachments()
         {
-            List<int> ActivitiesCloseList = new List<int>();
+            List<int> AttachmentCloseList = new List<int>();
 
-            string ActClosePath = @"C:\Users\Abhishek\Documents\PR388\"; //Final Check
-            string ActCloseFilePath = ActClosePath + "ActivitiesToClose.csv";
-            string ErrorFilePath = @"C:\Users\Abhishek\Documents\PR388\ActCloseErrorLog_";
+            string AttClosePath = @"C:\Users\AbhishekChhibber\OneDrive - BrokerLink\Documents\MVR Attchments\"; //Final Check
+            string AttCloseFilePath = AttClosePath + "AttachmentsToClose.csv";
+            string ErrorFilePath = @"C:\Users\AbhishekChhibber\OneDrive - BrokerLink\Documents\MVR Attchments\AttCloseErrorLog_";
             string ErrorList = "";
-            var Actreader = new StreamReader(File.OpenRead(ActCloseFilePath));
+            var Attreader = new StreamReader(File.OpenRead(AttCloseFilePath));
 
-            while (!Actreader.EndOfStream)
+            while (!Attreader.EndOfStream)
             {
-                var line = Actreader.ReadLine();
+                var line = Attreader.ReadLine();
                 var values = line.Split(';');
 
-                ActivitiesCloseList.Add(int.Parse(values[0]));
+                AttachmentCloseList.Add(int.Parse(values[0]));
             }
 
-            int ActCount = ActivitiesCloseList.Count; 
-            EpicIntegrator.ActivityService acs = new EpicIntegrator.ActivityService();
+            int AttCount = AttachmentCloseList.Count; 
+            EpicIntegrator.AttachmentService ats = new EpicIntegrator.AttachmentService();
 
-            var ActCloseStart = DateTime.Now;
-            Console.WriteLine("Act-Close Started: " + ActCloseStart);
-            int ActCloseCounter = 0;
-            foreach (int act in ActivitiesCloseList)
+            var AttCloseStart = DateTime.Now;
+            Console.WriteLine("Att-Close Started: " + AttCloseStart);
+            int AttCloseCounter = 0;
+            foreach (int att in AttachmentCloseList)
             {
                 try
                 {
-                    ActCloseCounter++;
-                    Console.WriteLine(ActCloseCounter + " of " + ActCount + " - " + act);
-                    acs.CloseActivity(act);
+                    AttCloseCounter++;
+                    Console.WriteLine(AttCloseCounter + " of " + AttCount + " - " + att);
+                    ats.CloseAttachment(att);
 
                     
                     
                 }
                 catch (Exception e)
                 {
-                    string err = "#Failed| " + act + "| "+e;
+                    string err = "#Failed| " + att + "| "+e;
                     ErrorList = ErrorList + err + System.Environment.NewLine; 
                     Console.WriteLine(err);
                 }
             }
-            var ActCloseEnd = DateTime.Now;
+            var AttCloseEnd = DateTime.Now;
             
             if (ErrorList.Length > 1)
             {
@@ -67,7 +67,7 @@ namespace EpicIntegrator
                 File.WriteAllLines(ErrorPathFull, ErrorList2);
             }
 
-            Console.WriteLine("Act-Close Ended: " + ActCloseEnd);
+            Console.WriteLine("Act-Close Ended: " + AttCloseEnd);
 
 
 
